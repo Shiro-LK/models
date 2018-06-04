@@ -65,7 +65,8 @@ class FasterRCNNMobilenetV1FeatureExtractor(
                depth_multiplier=1.0,
                min_depth=16,
                skip_last_stride=False,
-               conv_depth_ratio_in_percentage=100):
+               conv_depth_ratio_in_percentage=100,
+               num_input_channels=3):
     """Constructor.
 
     Args:
@@ -91,7 +92,7 @@ class FasterRCNNMobilenetV1FeatureExtractor(
     self._conv_depth_ratio_in_percentage = conv_depth_ratio_in_percentage
     super(FasterRCNNMobilenetV1FeatureExtractor, self).__init__(
         is_training, first_stage_features_stride, batch_norm_trainable,
-        reuse_weights, weight_decay)
+        reuse_weights, weight_decay, num_input_channels)
 
   def preprocess(self, resized_inputs):
     """Faster R-CNN Mobilenet V1 preprocessing.

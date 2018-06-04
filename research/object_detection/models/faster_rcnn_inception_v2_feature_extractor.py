@@ -61,7 +61,8 @@ class FasterRCNNInceptionV2FeatureExtractor(
                reuse_weights=None,
                weight_decay=0.0,
                depth_multiplier=1.0,
-               min_depth=16):
+               min_depth=16,
+               num_input_channels=3):
     """Constructor.
 
     Args:
@@ -82,7 +83,7 @@ class FasterRCNNInceptionV2FeatureExtractor(
     self._min_depth = min_depth
     super(FasterRCNNInceptionV2FeatureExtractor, self).__init__(
         is_training, first_stage_features_stride, batch_norm_trainable,
-        reuse_weights, weight_decay)
+        reuse_weights, weight_decay, num_input_channels)
 
   def preprocess(self, resized_inputs):
     """Faster R-CNN Inception V2 preprocessing.

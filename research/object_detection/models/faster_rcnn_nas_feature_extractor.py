@@ -121,7 +121,8 @@ class FasterRCNNNASFeatureExtractor(
                first_stage_features_stride,
                batch_norm_trainable=False,
                reuse_weights=None,
-               weight_decay=0.0):
+               weight_decay=0.0,
+               num_input_channels=3):
     """Constructor.
 
     Args:
@@ -138,7 +139,7 @@ class FasterRCNNNASFeatureExtractor(
       raise ValueError('`first_stage_features_stride` must be 16.')
     super(FasterRCNNNASFeatureExtractor, self).__init__(
         is_training, first_stage_features_stride, batch_norm_trainable,
-        reuse_weights, weight_decay)
+        reuse_weights, weight_decay, num_input_channels)
 
   def preprocess(self, resized_inputs):
     """Faster R-CNN with NAS preprocessing.

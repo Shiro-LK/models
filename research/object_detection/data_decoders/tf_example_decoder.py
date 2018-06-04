@@ -154,6 +154,7 @@ class TfExampleDecoder(data_decoder.DataDecoder):
             tf.FixedLenFeature((), tf.int64, default_value=1),
         'image/width':
             tf.FixedLenFeature((), tf.int64, default_value=1),
+        'image/channels': tf.FixedLenFeature((), tf.int64, 3),
         # Object boxes and classes.
         'image/object/bbox/xmin':
             tf.VarLenFeature(tf.float32),
@@ -185,8 +186,12 @@ class TfExampleDecoder(data_decoder.DataDecoder):
           channels=3,
           dct_method=dct_method)
     else:
-      image = slim_example_decoder.Image(
-          image_key='image/encoded', format_key='image/format', channels=3)
+#      image = slim_example_decoder.Image(
+#          image_key='image/encoded', format_key='image/format', channels=3)
+      image = slim_example_decoder.ItemHandlerCallback(
+          keys=['image/encoded', 'image/height', 'image/width', 'image/channels'],
+          func=self._read_image
+        )
     self.items_to_handlers = {
         fields.InputDataFields.image:
             image,
@@ -406,3 +411,12 @@ class TfExampleDecoder(data_decoder.DataDecoder):
         tf.greater(tf.size(png_masks), 0),
         lambda: tf.map_fn(decode_png_mask, png_masks, dtype=tf.float32),
         lambda: tf.zeros(tf.to_int32(tf.stack([0, height, width]))))
+
+  def _read_image(self, keys_to_tensors):
+      image_encoded = keys_to_tensors['image/encoded']
+      height = keys_to_tensors['image/height']
+      width = keys_to_tensors['image/width']
+      channels = keys_to_tensors['image/channels']
+      to_shape = tf.cast(tf.stack([height, width, channels]), tf.int32)
+      image = tf.reshape(tf.decode_raw(image_encoded, tf.uint8), to_shape)
+      return image

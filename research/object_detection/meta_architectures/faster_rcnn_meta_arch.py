@@ -121,7 +121,8 @@ class FasterRCNNFeatureExtractor(object):
                first_stage_features_stride,
                batch_norm_trainable=False,
                reuse_weights=None,
-               weight_decay=0.0):
+               weight_decay=0.0,
+               num_input_channels=3):
     """Constructor.
 
     Args:
@@ -139,6 +140,7 @@ class FasterRCNNFeatureExtractor(object):
     self._train_batch_norm = (batch_norm_trainable and is_training)
     self._reuse_weights = reuse_weights
     self._weight_decay = weight_decay
+    self._num_input_channels = num_input_channels
 
   @abstractmethod
   def preprocess(self, resized_inputs):

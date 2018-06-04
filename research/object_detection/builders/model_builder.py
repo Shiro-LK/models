@@ -103,7 +103,7 @@ def build(model_config, is_training, add_summaries=True,
 
 
 def _build_ssd_feature_extractor(feature_extractor_config, is_training,
-                                 reuse_weights=None):
+                                 reuse_weights=None, num_input_channels=3):
   """Builds a ssd_meta_arch.SSDFeatureExtractor based on config.
 
   Args:
@@ -135,7 +135,7 @@ def _build_ssd_feature_extractor(feature_extractor_config, is_training,
   return feature_extractor_class(
       is_training, depth_multiplier, min_depth, pad_to_multiple,
       conv_hyperparams, reuse_weights, use_explicit_padding, use_depthwise,
-      override_base_feature_extractor_hyperparams)
+      override_base_feature_extractor_hyperparams, num_input_channels)
 
 
 def _build_ssd_model(ssd_config, is_training, add_summaries,
@@ -159,11 +159,11 @@ def _build_ssd_model(ssd_config, is_training, add_summaries,
       model_class_map).
   """
   num_classes = ssd_config.num_classes
-
+  num_input_channels = ssd_config.num_input_channels
   # Feature extractor
   feature_extractor = _build_ssd_feature_extractor(
       feature_extractor_config=ssd_config.feature_extractor,
-      is_training=is_training)
+      is_training=is_training, num_input_channels=num_input_channels)
 
   box_coder = box_coder_builder.build(ssd_config.box_coder)
   matcher = matcher_builder.build(ssd_config.matcher)
@@ -214,7 +214,7 @@ def _build_ssd_model(ssd_config, is_training, add_summaries,
 
 def _build_faster_rcnn_feature_extractor(
     feature_extractor_config, is_training, reuse_weights=None,
-    inplace_batchnorm_update=False):
+    inplace_batchnorm_update=False, num_input_channels=3):
   """Builds a faster_rcnn_meta_arch.FasterRCNNFeatureExtractor based on config.
 
   Args:
@@ -248,7 +248,7 @@ def _build_faster_rcnn_feature_extractor(
       feature_type]
   return feature_extractor_class(
       is_training, first_stage_features_stride,
-      batch_norm_trainable, reuse_weights)
+      batch_norm_trainable, reuse_weights, num_input_channels)
 
 
 def _build_faster_rcnn_model(frcnn_config, is_training, add_summaries):
@@ -270,12 +270,13 @@ def _build_faster_rcnn_model(frcnn_config, is_training, add_summaries):
     ValueError: If frcnn_config.type is not recognized (i.e. not registered in
       model_class_map).
   """
+  num_input_channels = frcnn_config.num_input_channels
   num_classes = frcnn_config.num_classes
   image_resizer_fn = image_resizer_builder.build(frcnn_config.image_resizer)
 
   feature_extractor = _build_faster_rcnn_feature_extractor(
       frcnn_config.feature_extractor, is_training,
-      frcnn_config.inplace_batchnorm_update)
+      frcnn_config.inplace_batchnorm_update, num_input_channels)
 
   number_of_stages = frcnn_config.number_of_stages
   first_stage_anchor_generator = anchor_generator_builder.build(

@@ -39,7 +39,8 @@ class FasterRCNNInceptionResnetV2FeatureExtractor(
                first_stage_features_stride,
                batch_norm_trainable=False,
                reuse_weights=None,
-               weight_decay=0.0):
+               weight_decay=0.0,
+               num_input_channels=3):
     """Constructor.
 
     Args:
@@ -56,7 +57,7 @@ class FasterRCNNInceptionResnetV2FeatureExtractor(
       raise ValueError('`first_stage_features_stride` must be 8 or 16.')
     super(FasterRCNNInceptionResnetV2FeatureExtractor, self).__init__(
         is_training, first_stage_features_stride, batch_norm_trainable,
-        reuse_weights, weight_decay)
+        reuse_weights, weight_decay, num_input_channels)
 
   def preprocess(self, resized_inputs):
     """Faster R-CNN with Inception Resnet v2 preprocessing.

@@ -37,7 +37,8 @@ class SSDInceptionV2FeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               override_base_feature_extractor_hyperparams=False):
+               override_base_feature_extractor_hyperparams=False,
+               num_input_channels=3):
     """InceptionV2 Feature Extractor for SSD Models.
 
     Args:
@@ -63,7 +64,7 @@ class SSDInceptionV2FeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
     super(SSDInceptionV2FeatureExtractor, self).__init__(
         is_training, depth_multiplier, min_depth, pad_to_multiple,
         conv_hyperparams_fn, reuse_weights, use_explicit_padding, use_depthwise,
-        override_base_feature_extractor_hyperparams)
+        override_base_feature_extractor_hyperparams, num_input_channels)
     if not self._override_base_feature_extractor_hyperparams:
       raise ValueError('SSD Inception V2 feature extractor always uses'
                        'scope returned by `conv_hyperparams_fn` for both the '

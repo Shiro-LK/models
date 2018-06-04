@@ -44,7 +44,7 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               override_base_feature_extractor_hyperparams=False):
+               override_base_feature_extractor_hyperparams=False, num_input_channels=3):
     """SSD FPN feature extractor based on Resnet v1 architecture.
 
     Args:
@@ -75,7 +75,7 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
     super(_SSDResnetV1FpnFeatureExtractor, self).__init__(
         is_training, depth_multiplier, min_depth, pad_to_multiple,
         conv_hyperparams_fn, reuse_weights, use_explicit_padding,
-        override_base_feature_extractor_hyperparams)
+        override_base_feature_extractor_hyperparams, num_input_channels)
     if self._depth_multiplier != 1.0:
       raise ValueError('Only depth 1.0 is supported, found: {}'.
                        format(self._depth_multiplier))
@@ -100,7 +100,7 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
         representing a batch of images.
     """
     channel_means = [123.68, 116.779, 103.939]
-    return resized_inputs - [[channel_means]]
+    return (2.0 / 255.0) * resized_inputs - 1.0
 
   def _filter_features(self, image_features):
     # TODO(rathodv): Change resnet endpoint to strip scope prefixes instead
@@ -184,7 +184,7 @@ class SSDResnet50V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               override_base_feature_extractor_hyperparams=False):
+               override_base_feature_extractor_hyperparams=False, num_input_channels=3):
     """SSD Resnet50 V1 FPN feature extractor based on Resnet v1 architecture.
 
     Args:
@@ -209,7 +209,7 @@ class SSDResnet50V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         is_training, depth_multiplier, min_depth, pad_to_multiple,
         conv_hyperparams_fn, resnet_v1.resnet_v1_50, 'resnet_v1_50', 'fpn',
         reuse_weights, use_explicit_padding,
-        override_base_feature_extractor_hyperparams)
+        override_base_feature_extractor_hyperparams, num_input_channels)
 
 
 class SSDResnet101V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
@@ -223,7 +223,7 @@ class SSDResnet101V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               override_base_feature_extractor_hyperparams=False):
+               override_base_feature_extractor_hyperparams=False, num_input_channels=3):
     """SSD Resnet101 V1 FPN feature extractor based on Resnet v1 architecture.
 
     Args:
@@ -248,7 +248,7 @@ class SSDResnet101V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         is_training, depth_multiplier, min_depth, pad_to_multiple,
         conv_hyperparams_fn, resnet_v1.resnet_v1_101, 'resnet_v1_101', 'fpn',
         reuse_weights, use_explicit_padding,
-        override_base_feature_extractor_hyperparams)
+        override_base_feature_extractor_hyperparams, num_input_channels)
 
 
 class SSDResnet152V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
@@ -262,7 +262,7 @@ class SSDResnet152V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               override_base_feature_extractor_hyperparams=False):
+               override_base_feature_extractor_hyperparams=False, num_input_channels=3):
     """SSD Resnet152 V1 FPN feature extractor based on Resnet v1 architecture.
 
     Args:
@@ -287,4 +287,4 @@ class SSDResnet152V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         is_training, depth_multiplier, min_depth, pad_to_multiple,
         conv_hyperparams_fn, resnet_v1.resnet_v1_152, 'resnet_v1_152', 'fpn',
         reuse_weights, use_explicit_padding,
-        override_base_feature_extractor_hyperparams)
+        override_base_feature_extractor_hyperparams, num_input_channels)

@@ -39,7 +39,7 @@ class SSDMobileNetV1FeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               override_base_feature_extractor_hyperparams=False):
+               override_base_feature_extractor_hyperparams=False, num_input_channels=3):
     """MobileNetV1 Feature Extractor for SSD Models.
 
     Args:
@@ -63,7 +63,7 @@ class SSDMobileNetV1FeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
     super(SSDMobileNetV1FeatureExtractor, self).__init__(
         is_training, depth_multiplier, min_depth, pad_to_multiple,
         conv_hyperparams_fn, reuse_weights, use_explicit_padding, use_depthwise,
-        override_base_feature_extractor_hyperparams)
+        override_base_feature_extractor_hyperparams, num_input_channels)
 
   def preprocess(self, resized_inputs):
     """SSD preprocessing.
