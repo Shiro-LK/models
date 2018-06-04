@@ -120,5 +120,5 @@ message SsdFeatureExtractor {
   // Whether to use depthwise separable convolutions for to extract additional
   // feature maps added by SSD.
   optional bool use_depthwise = 8 [default=false];
-  optional uint32 num_input_channels = 9 [default=3];
+  optional uint32 num_input_channels = 10 [default=3];
 }
