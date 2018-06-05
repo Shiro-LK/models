@@ -160,8 +160,6 @@ def _build_ssd_model(ssd_config, is_training, add_summaries,
   """
   num_classes = ssd_config.num_classes
   num_input_channels = ssd_config.num_input_channels
-  print('channels  :', num_input_channels)
-  exit()
   # Feature extractor
   feature_extractor = _build_ssd_feature_extractor(
       feature_extractor_config=ssd_config.feature_extractor,
