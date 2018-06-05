@@ -214,7 +214,7 @@ def _build_ssd_model(ssd_config, is_training, add_summaries,
 
 def _build_faster_rcnn_feature_extractor(
     feature_extractor_config, is_training, reuse_weights=None,
-    inplace_batchnorm_update=False, num_input_channels=num_input_channels=3):
+    inplace_batchnorm_update=False, num_input_channels=3):
   """Builds a faster_rcnn_meta_arch.FasterRCNNFeatureExtractor based on config.
 
   Args:
