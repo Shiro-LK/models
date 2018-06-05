@@ -248,7 +248,7 @@ def _build_faster_rcnn_feature_extractor(
       feature_type]
   return feature_extractor_class(
       is_training, first_stage_features_stride,
-      batch_norm_trainable, reuse_weights, num_input_channels)
+      batch_norm_trainable, reuse_weights, num_input_channels=num_input_channels)
 
 
 def _build_faster_rcnn_model(frcnn_config, is_training, add_summaries):
