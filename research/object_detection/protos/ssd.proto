@@ -80,6 +80,7 @@ message Ssd {
   // a control dependency on tf.GraphKeys.UPDATE_OPS for train/loss op in order
   // to update the batch norm moving average parameters.
   optional bool inplace_batchnorm_update = 15 [default = false];
+  optional uint32 num_input_channels = 17 [default=3];
 }
 
 
@@ -120,5 +121,5 @@ message SsdFeatureExtractor {
   // Whether to use depthwise separable convolutions for to extract additional
   // feature maps added by SSD.
   optional bool use_depthwise = 8 [default=false];
-  optional uint32 num_input_channels = 10 [default=3];
+  
 }

@@ -137,6 +137,7 @@ message FasterRcnn {
   // a control dependency on tf.GraphKeys.UPDATE_OPS for train/loss op in order
   // to update the batch norm moving average parameters.
   optional bool inplace_batchnorm_update = 30 [default = false];
+  optional uint32 num_input_channels = 31 [default=3];
 }
 
 
@@ -152,5 +153,5 @@ message FasterRcnnFeatureExtractor {
   // When training with a relative large batch size (e.g. 8), it could be
   // desirable to enable batch norm update.
   optional bool batch_norm_trainable = 3 [default=false];
-  optional uint32 num_input_channels = 30 [default=3];
+  
 }
