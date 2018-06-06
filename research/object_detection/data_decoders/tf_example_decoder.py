@@ -154,7 +154,8 @@ class TfExampleDecoder(data_decoder.DataDecoder):
             tf.FixedLenFeature((), tf.int64, default_value=1),
         'image/width':
             tf.FixedLenFeature((), tf.int64, default_value=1),
-        'image/channels': tf.FixedLenFeature((), tf.int64, 3),
+        'image/channels': 
+            tf.FixedLenFeature((), tf.int64, default_value=1),
         # Object boxes and classes.
         'image/object/bbox/xmin':
             tf.VarLenFeature(tf.float32),
@@ -180,6 +181,7 @@ class TfExampleDecoder(data_decoder.DataDecoder):
             tf.VarLenFeature(tf.float32),
     }
     if dct_method:
+      print('first loop')
       image = slim_example_decoder.Image(
           image_key='image/encoded',
           format_key='image/format',
@@ -188,6 +190,7 @@ class TfExampleDecoder(data_decoder.DataDecoder):
     else:
 #      image = slim_example_decoder.Image(
 #          image_key='image/encoded', format_key='image/format', channels=3)
+      print('second loop')
       image = slim_example_decoder.ItemHandlerCallback(
           keys=['image/encoded', 'image/height', 'image/width', 'image/channels'],
           func=self._read_image
