@@ -236,7 +236,7 @@ def train(create_tensor_dict_fn,
       to the training graph such as adding FakeQuant ops. The function should
       modify the default graph.
   """
-  print('before create model fn')
+
   detection_model = create_model_fn()
   data_augmentation_options = [
       preprocessor_builder.build(step)
@@ -296,7 +296,7 @@ def train(create_tensor_dict_fn,
           replicas_to_aggregate=train_config.replicas_to_aggregate,
           total_num_replicas=worker_replicas)
       sync_optimizer = training_optimizer
-    print('before deploy config.optimizer device')
+
     with tf.device(deploy_config.optimizer_device()):
       regularization_losses = (None if train_config.add_regularization_loss
                                else [])
@@ -383,7 +383,8 @@ def train(create_tensor_dict_fn,
       def initializer_fn(sess):
         init_saver.restore(sess, train_config.fine_tune_checkpoint)
       init_fn = initializer_fn
-
+      
+    print("before slim.learning")
     slim.learning.train(
         train_tensor,
         logdir=train_dir,

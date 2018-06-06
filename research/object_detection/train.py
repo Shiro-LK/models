@@ -162,7 +162,7 @@ def main(_):
   if 'graph_rewriter_config' in configs:
     graph_rewriter_fn = graph_rewriter_builder.build(
         configs['graph_rewriter_config'], is_training=True)
-  print('before trainer')
+
   trainer.train(
       create_input_dict_fn,
       model_fn,
