@@ -185,7 +185,7 @@ class TfExampleDecoder(data_decoder.DataDecoder):
       image = slim_example_decoder.Image(
           image_key='image/encoded',
           format_key='image/format',
-          channels=3,
+          channels=4,
           dct_method=dct_method)
     else:
 #      image = slim_example_decoder.Image(
