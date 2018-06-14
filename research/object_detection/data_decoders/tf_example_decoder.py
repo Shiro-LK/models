@@ -190,12 +190,12 @@ class TfExampleDecoder(data_decoder.DataDecoder):
       exit()
     else:
       #print( 'second loop :', slim_example_decoder.Tensor('image/channels') )
-      image = slim_example_decoder.Image(
-          image_key='image/encoded', format_key='image/format', channels=4 )
+      #image = slim_example_decoder.Image(
+       #   image_key='image/encoded', format_key='image/format', channels=4 )
       
-      #image = slim_example_decoder.ItemHandlerCallback(
-       #   keys=['image/encoded', 'image/height', 'image/width', 'image/channels'],
-        #  func=self._read_image)
+      image = slim_example_decoder.ItemHandlerCallback(
+          keys=['image/encoded', 'image/height', 'image/width', 'image/channels'],
+          func=self._read_image)
       
     self.items_to_handlers = {
         fields.InputDataFields.image:
