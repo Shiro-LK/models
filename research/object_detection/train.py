@@ -111,10 +111,12 @@ def main(_):
   train_config = configs['train_config']
   input_config = configs['train_input_config']
   try:
-      print('ssd :', model_config.Ssd)
+      #print('ssd :', model_config.ssd)
+      model_config.ssd
+      print('faster number channels :', model_config.ssd.num_input_channels)
   except:
-      print('faster :', model_config.faster_rcnn)
-  #print('number channels :', model_config[0])
+      #print('faster :', model_config.faster_rcnn)
+      print('faster number channels :', model_config.faster_rcnn.num_input_channels)
   model_fn = functools.partial(
       model_builder.build,
       model_config=model_config,
