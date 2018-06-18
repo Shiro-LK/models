@@ -110,7 +110,7 @@ def main(_):
   model_config = configs['model']
   train_config = configs['train_config']
   input_config = configs['train_input_config']
-  print('number channels :', model_config)
+  print('number channels :', model_config[0])
   model_fn = functools.partial(
       model_builder.build,
       model_config=model_config,
