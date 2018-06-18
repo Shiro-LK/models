@@ -424,7 +424,9 @@ class TfExampleDecoder(data_decoder.DataDecoder):
       height = keys_to_tensors['image/height']
       width = keys_to_tensors['image/width']
       channels = keys_to_tensors['image/channels']
-      print("channels :", channels.eval())
+      sess = tf.Session()
+      print("channels :", sess.run(channels))
+      sess.close()
       to_shape = tf.cast(tf.stack([height, width, channels]), tf.int32)
       image = tf.reshape(tf.decode_raw(image_encoded, tf.uint8), to_shape)
       return image
