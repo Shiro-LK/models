@@ -323,7 +323,7 @@ class TfExampleDecoder(data_decoder.DataDecoder):
     is_crowd = fields.InputDataFields.groundtruth_is_crowd
     tensor_dict[is_crowd] = tf.cast(tensor_dict[is_crowd], dtype=tf.bool)
     print('channels : ', self.keys_to_features['image/channels'])
-    num_chan = tf.cast( self.keys_to_features['image/channels'], tf.int32)
+    num_chan = tf.cast( self.keys_to_features['image/channels'], tf.int64)
     print(num_chan)
     
     
