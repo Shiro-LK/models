@@ -322,8 +322,11 @@ class TfExampleDecoder(data_decoder.DataDecoder):
     tensor_dict = dict(zip(keys, tensors))
     is_crowd = fields.InputDataFields.groundtruth_is_crowd
     tensor_dict[is_crowd] = tf.cast(tensor_dict[is_crowd], dtype=tf.bool)
+    print('channels : ', self.keys_to_features['image/channels'])
     num_chan = tf.cast( self.keys_to_features['image/channels'], tf.int32)
     print(num_chan)
+    
+    
     tensor_dict[fields.InputDataFields.image].set_shape([None, None,num_chan])
     tensor_dict[fields.InputDataFields.num_groundtruth_boxes] = tf.shape(
         tensor_dict[fields.InputDataFields.groundtruth_boxes])[0]
@@ -424,9 +427,6 @@ class TfExampleDecoder(data_decoder.DataDecoder):
       height = keys_to_tensors['image/height']
       width = keys_to_tensors['image/width']
       channels = keys_to_tensors['image/channels']
-      sess = tf.Session()
-      print("channels :", sess.run(channels))
-      sess.close()
       to_shape = tf.cast(tf.stack([height, width, channels]), tf.int32)
       image = tf.reshape(tf.decode_raw(image_encoded, tf.uint8), to_shape)
       return image
